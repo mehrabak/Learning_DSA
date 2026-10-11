@@ -1,0 +1,249 @@
+import java.util.Scanner;
+
+class Array {
+    int[] arr;
+    int size;
+    Scanner sc = new Scanner(System.in);
+
+    public Array(int capacity) {
+        arr = new int[capacity];
+        size = 0;
+    }
+
+    void insertAtStart(int value) {
+        if (size == arr.length) {
+            System.out.println("Array is full");
+            return;
+        }
+        for (int i = size; i > 0; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = value;
+        size++;
+    }
+
+    void insertAtEnd(int value) {
+        if (size == arr.length) {
+            System.out.println("Array is full");
+            return;
+        }
+        arr[size] = value;
+        size++;
+    }
+
+    void insertAtIndex(int index, int value) {
+        if (size == arr.length) {
+            System.out.println("Array is full");
+            return;
+        }
+        if (index < 0 || index > size) {
+            System.out.println("Invalid index");
+            return;
+        }
+        for (int i = size; i > index; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[index] = value;
+        size++;
+    }
+
+    void deleteAtStart() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        for (int i = 0; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
+    }
+
+    void deleteAtEnd() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        size--;
+    }
+
+    void deleteAtIndex(int index) {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        if (index < 0 || index >= size) {
+            System.out.println("Invalid index");
+            return;
+        }
+        for (int i = index; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
+    }
+
+    void SearchAndReplaceValue(int oldVal, int newVal) {
+        boolean found = false;
+        for (int i = 0; i < size; i++) {
+            if (arr[i] == oldVal) {
+                arr[i] = newVal;
+                found = true;
+            }
+        }
+        if (found == false) {
+            System.out.println("Value not found");
+        } else {
+            System.out.println("Replaced " + oldVal + " with " + newVal);
+        }
+    }
+
+    void SearchAndDeleteValue(int value) {
+        int index = -1;
+        for (int i = 0; i < size; i++) {
+            if (arr[i] == value) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            System.out.println("Value not found");
+            return;
+        }
+        deleteAtIndex(index);
+        System.out.println("Deleted value: " + value);
+    }
+
+    void FindMin() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        int min = arr[0];
+        for (int i = 1; i < size; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        System.out.println("Min value: " + min);
+    }
+
+    void FindMax() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        int max = arr[0];
+        for (int i = 1; i < size; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        System.out.println("Max value: " + max);
+    }
+
+    void SumOfArrayElements() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        int sum = 0;
+        for (int i = 0; i < size; i++) {
+            sum = sum + arr[i];
+        }
+        System.out.println("Sum of array: " + sum);
+    }
+
+    void DisplayArray() {
+        System.out.println("Array's size: " + size);
+        if (size == 0) {
+            System.out.println("Array is empty ");
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Array list = new Array(20);
+        int choice;
+
+        do {
+            System.out.println("\n--- Menu ---");
+            System.out.println("1. insertAtStart");
+            System.out.println("2. insertAtEnd");
+            System.out.println("3. insertAtIndex");
+            System.out.println("4. deleteAtStart");
+            System.out.println("5. deleteAtEnd");
+            System.out.println("6. deleteAtIndex");
+            System.out.println("7. SearchAndReplaceValue");
+            System.out.println("8. SearchAndDeleteValue");
+            System.out.println("9. FindMin");
+            System.out.println("10. FindMax");
+            System.out.println("11. SumOfArrayElements");
+            System.out.println("12. DisplayArray");
+            System.out.println("13. Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value: ");
+                    list.insertAtStart(sc.nextInt());
+                    break;
+                case 2:
+                    System.out.print("Enter value: ");
+                    list.insertAtEnd(sc.nextInt());
+                    break;
+                case 3:
+                    System.out.print("Enter index and value: ");
+                    int idx = sc.nextInt();
+                    int v = sc.nextInt();
+                    list.insertAtIndex(idx, v);
+                    break;
+                case 4:
+                    list.deleteAtStart();
+                    break;
+                case 5:
+                    list.deleteAtEnd();
+                    break;
+                case 6:
+                    System.out.print("Enter index: ");
+                    list.deleteAtIndex(sc.nextInt());
+                    break;
+                case 7:
+                    System.out.print("Enter old and new value: ");
+                    int oldV = sc.nextInt();
+                    int newV = sc.nextInt();
+                    list.SearchAndReplaceValue(oldV, newV);
+                    break;
+                case 8:
+                    System.out.print("Enter value to delete: ");
+                    list.SearchAndDeleteValue(sc.nextInt());
+                    break;
+                case 9:
+                    list.FindMin();
+                    break;
+                case 10:
+                    list.FindMax();
+                    break;
+                case 11:
+                    list.SumOfArrayElements();
+                    break;
+                case 12:
+                    list.DisplayArray();
+                    break;
+                case 13:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } while (choice!= 13);
+
+        sc.close();
+    }
+}
